@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Pessoa;
+use App\Models\Registro;
+use App\Models\TipoRegistro;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,11 +18,35 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $tipoCelular = TipoRegistro::factory()->create(['tipo_registro' => 'Celular']);
+        $tipoEmail   = TipoRegistro::factory()->create(['tipo_registro' => 'E-mail']);
+        $tipoInsta   = TipoRegistro::factory()->create(['tipo_registro' => 'Instagram']);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        Pessoa::factory()
+            ->count(15)
+            ->afterCreating(function (Pessoa $pessoa) use ($tipoCelular, $tipoEmail, $tipoInsta) 
+            {
+                Registro::factory()->create(
+                [
+                    'contato' => fake()->phoneNumber(),
+                    'pessoa_id' => $pessoa->id,
+                    'tipo_registro_id' => $tipoCelular->id
+                ]);
+
+                Registro::factory()->create(
+                [
+                    'contato' => fake()->unique()->safeEmail(),
+                    'pessoa_id' => $pessoa->id,
+                    'tipo_registro_id' => $tipoEmail->id
+                ]);
+
+                Registro::factory()->create(
+                [
+                    'contato' => '@' . fake()->userName(),
+                    'pessoa_id' => $pessoa->id,
+                    'tipo_registro_id' => $tipoInsta->id
+                ]);
+            })
+            ->create();
     }
 }
