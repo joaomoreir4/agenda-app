@@ -15,7 +15,7 @@ class Pessoa extends Model
     use HasFactory;
     protected $fillable = ['nome']; 
 
-    public function contatos(): HasMany
+    public function registros(): HasMany
     {
         return $this->hasMany(Registro::class);
     }
