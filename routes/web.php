@@ -14,4 +14,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/configuracoes', function () {
+        return view('configuracoes');
+    })->name('configuracoes');
 });

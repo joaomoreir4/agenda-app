@@ -45,15 +45,16 @@ class CriarContatos extends Component
         $this->contatos = array_values($this->contatos);
     }
 
-    public function save()
-        {
+    public function save(){
             $dados = $this->validate();
             $pessoa = Pessoa::create($dados);
             $dados["pessoa_id"] = $pessoa->id;
+
             foreach($dados["contatos"] as $dado){
                 $dado["pessoa_id"] = $dados["pessoa_id"];
                 Registro::create($dado);
             }
+            
             $this->showModal = false;
             $this->dispatch('contato-criado');
         }
