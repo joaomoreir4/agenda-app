@@ -11,12 +11,24 @@ use Livewire\Attributes\Validate;
 class CriarContatos extends Component
 {
     public $showModal = false;
-    public $salvo = FALSE;
-    public $aux_contato = 0;
-    
-    public $tipos = [];
-    public $contatos = [''];
 
+    
+    public array $contatos = [];
+    public $tipo = '';
+    public $contato = '';
+
+    public function addContato(){
+        $this->contatos[] =
+                [
+                    'tipo' => $this->tipo, 
+                    'contato' => $this->contato
+                ];
+    }
+
+    public function deleteContato($index){
+        unset($this->contatos[$index]);
+        $this->contatos = array_values($this->contatos);
+    }
 
     public function render()
         {
@@ -32,12 +44,6 @@ class CriarContatos extends Component
             // Registro::create($contato);
             // // $this->dispatch('contato-created'); 
         }
- 
- 
-    public function addContato()
-    {
-        $this->contatos[] = '';
-    }
 
     public function removeContato($index)
     {
