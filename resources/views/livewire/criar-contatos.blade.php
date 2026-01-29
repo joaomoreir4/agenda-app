@@ -42,7 +42,7 @@
                                     <label class="block mb-1 text-sm text-slate-600">
                                         Data de nascimento
                                     </label>
-                                    <input x-mask="99/99/9999" placeholder="MM/DD/YYYY" class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
+                                    <input x-mask="99/99/9999" wire:model='data_nasc' placeholder="MM/DD/YYYY" class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
                                 </div>
 
 
@@ -56,10 +56,10 @@
                                                 Tipo de Contato
                                             </label> 
                                         
-                                            <select wire:model.live="tipo" class="block w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm appearance-none cursor-pointer">
+                                            <select wire:model.live="tipo_registro_id" class="block w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm appearance-none cursor-pointer">
                                                 <option>Selecione</option>
                                                 @foreach ($todos_tipos as $tipo)
-                                                    <option value="{{ $tipo->tipo_registro }}">{{ $tipo->tipo_registro }}</option>
+                                                    <option value="{{ $tipo->id }}">{{ $tipo->tipo_registro }}</option>
                                                 @endforeach'
                                             </select>
                                         </div>

@@ -12,15 +12,28 @@ class CriarContatos extends Component
 {
     public $showModal = false;
 
-    
-    public array $contatos = [];
-    public $tipo = '';
+    #[Validate('required')] 
+    public $nome = '';
+
+    #[Validate('required')] 
+    public $endereco = '';
+
+    #[Validate('required')] 
+    public $data_nasc = '';
+
+    #[Validate('required')] 
+    public $tipo_registro_id = '';
+
+    #[Validate('required')] 
     public $contato = '';
+
+    #[Validate('required')] 
+    public array $contatos = [];
 
     public function addContato(){
         $this->contatos[] =
                 [
-                    'tipo' => $this->tipo, 
+                    'tipo' => $this->tipo_registro_id, 
                     'contato' => $this->contato
                 ];
     }
@@ -30,24 +43,16 @@ class CriarContatos extends Component
         $this->contatos = array_values($this->contatos);
     }
 
-    public function render()
-        {
-            $todos_tipos = TipoRegistro::orderBy('tipo_registro')->get();
-            return view('livewire.criar-contatos', compact('todos_tipos'));
-        }
-    
     public function save()
         {
-            // $pessoa = $this->validate();
-            // Pessoa::create($pessoa);
-            // $contato = $this->validate();
-            // Registro::create($contato);
-            // // $this->dispatch('contato-created'); 
+            $dados = $this->validate();
+            $pessoa = Pessoa::create($dados);
+            $dados["pessoa_id"] = $pessoa->id;
+            Registro::create($dados);
         }
 
-    public function removeContato($index)
-    {
-        unset($this->contatos[$index]);
-        $this->contatos = array_values($this->contatos);
+    public function render(){
+            $todos_tipos = TipoRegistro::orderBy('tipo_registro')->get();
+            return view('livewire.criar-contatos', compact('todos_tipos'));
     }
 }

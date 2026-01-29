@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome', 45);
             $table->string('endereco');
-            $table->datetime('aniversario');
+            $table->datetime('data_nasc');
             $table->timestamps();
         });
     }
