@@ -50,6 +50,16 @@
 
                                 <div class="p-5 col-span-6 border border-gray-300 rounded-lg">
                                     <div class="grid grid-cols-6">
+                                        <div class="col-span-6">
+                                            <ul>
+                                                @foreach ($contatos as $index => $contato)
+                                                <li wire:key="contato{{ $index }}">
+                                                    <span>{{ $contato['tipo_nome'] }} {{ $contato['contato'] }} </span>
+                                                    <button wire:click="deleteContato({{ $index }})" type="button" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded">R</button>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
 
                                         <div class="col-span-3">
                                             <label class="block mb-1 text-sm text-slate-600">
@@ -63,6 +73,7 @@
                                                 @endforeach'
                                             </select>
                                         </div>
+
                                         <div class="col-span-3">
                                             <label class="block mb-1 text-sm text-slate-600">Contato</label>
                                             <input type="text" wire:model.live="contato" placeholder="Digite o contato..." class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" />
@@ -72,24 +83,8 @@
                                         <div class="col-span-3">
                                             <button wire:click="addContato()" type="button" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Adicionar contato</button>
                                         </div>
-
-                                        <div class="col-span-6">
-                                            <ul>
-                                                @foreach ($contatos as $index => $contato)
-                                                <li wire:key="contato{{ $index }}">
-                                                    <span>{{ $contato['tipo'] }} {{ $contato['contato'] }} </span>
-                                                    <button wire:click="deleteContato({{ $index }})" type="button" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded">R</button>
-                                                </li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-
-                                        
                                     </div>       
                                 </div>
-
-
-
 
                                 <div class="col-span-6 flex justify-between">
                                     <button x-on:click="$wire.showModal = false" type="button" class="rounded-md bg-black/50 px-4 py-3 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-black/20 sm:mt-0 sm:w-auto">Cancelar</button>

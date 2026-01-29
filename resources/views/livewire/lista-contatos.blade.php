@@ -48,10 +48,10 @@
             </div>
             <div class="flex">
                 <div class="border border-b-gray-400 w-full flex justify-center items-center gap-4">
-                    <livewire:editar-contatos :pessoa="$pessoa"/>
+                    <livewire:editar-contatos :wire:key="$pessoa->nome" :pessoa="$pessoa"/>
                 </div>
                 <div class="border border-b-gray-400 w-full flex justify-center items-center gap-4">
-                    <livewire:deletar-contatos :pessoa="$pessoa"/>
+                    <livewire:deletar-contatos :wire:key="$pessoa->id" :pessoa="$pessoa"/>
                 </div>
                 
             </div>

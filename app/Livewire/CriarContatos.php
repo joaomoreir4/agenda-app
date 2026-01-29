@@ -31,9 +31,11 @@ class CriarContatos extends Component
     public array $contatos = [];
 
     public function addContato(){
+        $tipo_registro_nome = TipoRegistro::find($this->tipo_registro_id);
         $this->contatos[] =
                 [
-                    'tipo' => $this->tipo_registro_id, 
+                    'tipo_registro_id' => $this->tipo_registro_id,
+                    'tipo_nome' => $tipo_registro_nome->tipo_registro, 
                     'contato' => $this->contato
                 ];
     }
@@ -48,7 +50,12 @@ class CriarContatos extends Component
             $dados = $this->validate();
             $pessoa = Pessoa::create($dados);
             $dados["pessoa_id"] = $pessoa->id;
-            Registro::create($dados);
+            foreach($dados["contatos"] as $dado){
+                $dado["pessoa_id"] = $dados["pessoa_id"];
+                Registro::create($dado);
+            }
+            $this->showModal = false;
+            $this->dispatch('contato-criado');
         }
 
     public function render(){
