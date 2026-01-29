@@ -8,15 +8,14 @@ use Livewire\Component;
 
 class ListaContatos extends Component
 {
-    public function deletarContato($id)
-    {
-        Registro::where('pessoa_id', $id)->delete();
-        Pessoa::where('id', $id)->delete();
-    }
+    public $search = '';
 
     public function render()
     {
-        $pessoas = Pessoa::with('registros.tipoRegistro')->get();
+        $pessoas = Pessoa::where("nome", "LIKE", "%" . $this->search . "%")
+            ->with('registros.tipoRegistro')
+            ->orderBy('nome')
+            ->get();
         return view('livewire.lista-contatos', ['pessoas' => $pessoas]);
     }
 }
