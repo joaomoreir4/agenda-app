@@ -3,6 +3,8 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>
     </button>
 
+    <div x-data="{ open: @entangle('showModal') }" x-on:abrir-modal-{{ $pessoa->id }}.window="open = true"></div>
+
     <div wire:show="showModal">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
@@ -14,7 +16,7 @@
                             <div class="grid grid-cols-6 gap-4">
 
                                 <div class="col-span-6 pt-1">
-                                    <h2>Criar um novo contato</h2>
+                                    <h2>Editando contato: {{ $pessoa->nome }}</h2>
                                 </div>
 
 
@@ -22,7 +24,7 @@
                                     <label class="block mb-1 text-sm text-slate-600">
                                         Nome
                                     </label>
-                                    <input type="text" wire:model='nome' id="nome" class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Digite o nome..." />
+                                    <input value="{{ $pessoa->nome }}" type="text" wire:model='nome' id="nome" class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Digite o nome..." />
                                 </div>
 
                                 
@@ -30,7 +32,7 @@
                                     <label class="block mb-1 text-sm text-slate-600">
                                         Endereço
                                     </label>
-                                    <input wire:model='endereco' id='endereco' type="text" class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Digite o endereço completo..." />   
+                                    <input value="{{ $pessoa->endereco }}" wire:model='endereco' id='endereco' type="text" class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Digite o endereço completo..." />   
                                 </div>
 
                                 <div class="col-span-3">

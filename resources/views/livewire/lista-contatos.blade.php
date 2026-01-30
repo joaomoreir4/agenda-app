@@ -2,7 +2,7 @@
 
     <div class="border border-gray-300 rounded-lg">
         <div class="w-full text-center bg-teal-800 text-white font-bold p-2 rounded-t-lg">
-            Listar Contatos
+            Lista de Contatos
         </div>
 
         <div class="px-5 bg-teal-700 text-white font-bold p-2 flex justify-between items-center">
@@ -33,7 +33,9 @@
             @foreach ($pessoas as $pessoa)
             <div class="col-span-2 flex border border-b-gray-400">
                     <div class="flex justify-center items-center ml-5"> 
-                        <h3>{{ $pessoa->nome }}</h3>
+                        <h3 wire:click="$dispatch('abrir-modal-{{ $pessoa->id }}')" class="font-bold cursor-pointer hover:text-blue-600">
+                            {{ $pessoa->nome }}
+                        </h3>
                     </div>
             </div>
             <div class="col-span-3 flex border border-b-gray-400">
@@ -53,10 +55,8 @@
                 <div class="border border-b-gray-400 w-full flex justify-center items-center gap-4">
                     <livewire:deletar-contatos :wire:key="$pessoa->id" :pessoa="$pessoa"/>
                 </div>
-                
             </div>
             @endforeach
         </div>
     </div>
-
 </div>

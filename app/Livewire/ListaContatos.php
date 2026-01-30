@@ -12,7 +12,7 @@ class ListaContatos extends Component
     public $search = '';
 
     #[On('contato-criado')]
-    #[On('contato-deletado')] 
+    #[On('contato-deletado')]
     public function render()
     {
         $pessoas = Pessoa::where("nome", "LIKE", "%" . $this->search . "%")

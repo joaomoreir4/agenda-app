@@ -13,7 +13,8 @@ class TiposController extends Controller
      */
     public function index()
     {
-        //
+        $tipos = TipoRegistro::orderBy('tipo_registro')->get();
+        return view('tipos.index', compact('tipos'));
     }
 
     /**
@@ -29,7 +30,8 @@ class TiposController extends Controller
      */
     public function store(StoreTipoRegistroRequest $request)
     {
-        //
+        TipoRegistro::create($request->validated());
+        return back();
     }
 
     /**
@@ -59,8 +61,9 @@ class TiposController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TipoRegistro $tipoRegistro)
+    public function destroy(TipoRegistro $tipo)
     {
-        //
+        $tipo->delete();
+        return back();
     }
 }

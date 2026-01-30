@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TiposController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,7 +16,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/configuracoes', function () {
-        return view('configuracoes');
-    })->name('configuracoes');
+    Route::resource('tipos', TiposController::class);
+    
 });

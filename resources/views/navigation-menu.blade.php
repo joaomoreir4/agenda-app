@@ -17,8 +17,8 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-3 sm:flex">
-                    <x-nav-link href="{{ route('configuracoes') }}" :active="request()->routeIs('configuracoes')">
-                        {{ __('Configurações') }}
+                    <x-nav-link href="{{ route('tipos.index') }}" :active="request()->routeIs('tipos.index')">
+                        {{ __('Gerenciar Tipos') }}
                     </x-nav-link>
                 </div>
             </div>
