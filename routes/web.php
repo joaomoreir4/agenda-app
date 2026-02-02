@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContatosController;
 use App\Http\Controllers\TiposController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,5 +18,7 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('tipos', TiposController::class);
+
+    Route::resource('contatos', ContatosController::class);
     
 });

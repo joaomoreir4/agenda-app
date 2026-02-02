@@ -21,7 +21,9 @@ class PessoaFactory extends Factory
     public function definition(): array
     {
         return [
-            'nome' => fake()->name()
+            'nome' => fake()->name(),
+            'endereco' => fake()->address(),
+            'data_nasc' => fake()->date(format: 'Y-m-d')
         ];
     }
 }

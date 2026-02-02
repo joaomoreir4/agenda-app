@@ -6,14 +6,13 @@
     </x-slot>
 
     <div class="py-12">
-                
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="border border-gray-300 rounded-lg bg-white">
                 <div class="w-full text-center bg-teal-800 text-white font-bold p-2 rounded-t-lg">
                     Gerenciar Tipos
                 </div>
                     <div class="">
-                        <form action="{{ route('tipos.index') }}"" method="POST" class="px-5">
+                        <form action="{{ route('tipos.store') }}" method="POST" class="px-5">
                             @csrf
                             <div class="grid grid-cols-6 gap-4 p-5">
                                 <div class="col-span-6 pt-1 justify-center">

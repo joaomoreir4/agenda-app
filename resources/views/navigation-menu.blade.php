@@ -13,12 +13,17 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Home') }}
+                        {{ __('Contatos') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-3 sm:flex">
                     <x-nav-link href="{{ route('tipos.index') }}" :active="request()->routeIs('tipos.index')">
                         {{ __('Gerenciar Tipos') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-3 sm:flex">
+                    <x-nav-link href="{{ route('contatos.index') }}" :active="request()->routeIs('contatos.index', 'contatos.create')">
+                        {{ __('Contatos') }}
                     </x-nav-link>
                 </div>
             </div>

@@ -32,35 +32,52 @@
                                     <label class="block mb-1 text-sm text-slate-600">
                                         Endereço
                                     </label>
-                                    <input value="{{ $pessoa->endereco }}" wire:model='endereco' id='endereco' type="text" class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Digite o endereço completo..." />   
+                                    <input value="{{ $pessoa->endereco }}" type="text" wire:model='endereco' id='endereco' class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Digite o endereço completo..." />   
                                 </div>
 
                                 <div class="col-span-3">
                                     <label class="block mb-1 text-sm text-slate-600">
                                         Data de nascimento
                                     </label>
-                                    <input x-mask="99/99/9999" placeholder="MM/DD/YYYY" class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
+                                    <input value="{{ $pessoa->data_nasc }}" x-mask="99/99/9999" placeholder="MM/DD/YYYY" class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
                                 </div>
 
-                                <div class="col-span-3">
-                                    <label class="block mb-1 text-sm text-slate-600">
-                                        Tipo de Contato
-                                    </label>
-                                    <div class="w-full max-w-xs mx-auto">
-                                        <select wire:model='tipo_contato' id="tipo-contato" class="block w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm appearance-none cursor-pointer">
-                                            <option>Selecione</option>
-                                            @foreach ($tipos as $tipo)
-                                                <option value="{{ $tipo->id }}">{{ $tipo->tipo_registro }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div> 
-                                </div>  
+                                <div class="p-5 col-span-6 border border-gray-300 rounded-lg">
+                                    <div class="grid grid-cols-6">
+                                        <div class="col-span-6">
+                                            <ul>
+                                                @foreach ($contatos as $index => $contato)
+                                                <li wire:key="contato{{ $index }}">
+                                                    <span>{{ $contato['tipo_nome'] }} {{ $contato['contato'] }} </span>
+                                                    <button wire:click="deleteContato({{ isset($contato['id']) ? $index . ', ' . $contato['id'] : $index }})" type="button" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded">R</button>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
 
-                                <div class="col-span-6">
-                                    <label class="block mb-1 text-sm text-slate-600">
-                                        Contato
-                                    </label>
-                                    <input wire:model='contato' id='contato' type="text" class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Digite o contato..." />   
+                                        <div class="col-span-3">
+                                            <label class="block mb-1 text-sm text-slate-600">
+                                                Tipo de Contato
+                                            </label> 
+                                        
+                                            <select wire:model.live="tipo_registro_id" class="block w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm appearance-none cursor-pointer">
+                                                <option>Selecione</option>
+                                                @foreach ($todos_tipos as $tipo)
+                                                    <option value="{{ $tipo->id }}">{{ $tipo->tipo_registro }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-span-3">
+                                            <label class="block mb-1 text-sm text-slate-600">Contato</label>
+                                            <input type="text" wire:model.live="contato" placeholder="Digite o contato..." class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" />
+                                        </div>
+                                        
+                                        
+                                        <div class="col-span-3">
+                                            <button wire:click="addContato()" type="button" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Adicionar contato</button>
+                                        </div>
+                                    </div>       
                                 </div>
                                 
                                 <div class="col-span-6 flex justify-between">

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('pessoas', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 45);
-            $table->string('endereco');
-            $table->datetime('data_nasc');
+            $table->string('endereco')->nullable();
+            $table->datetime('data_nasc')->nullable();
             $table->timestamps();
         });
     }
