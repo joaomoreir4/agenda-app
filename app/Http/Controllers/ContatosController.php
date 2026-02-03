@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pessoa;
+use App\Models\Registro;
 use App\Models\TipoRegistro;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,23 @@ class ContatosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
+        $pessoa = Pessoa::create(
+            [
+                'nome' => $request->nome,
+                'endereco' => $request->endereco,
+                'data_nasc' => $request->data_nasc,
+            ]
+        );
+
+        // $registro = Registro::create(
+        //     [
+        //         'tipo_registro_id'
+        //     ]
+        // )
+
+
+        dd($pessoa);
     }
 
     /**
@@ -61,8 +78,10 @@ class ContatosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        Registro::where('pessoa_id', $id)->delete();
+        Pessoa::where('id', $id)->delete();
+        return back();
     }
 }

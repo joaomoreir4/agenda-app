@@ -13,7 +13,7 @@ use Database\Factories\PessoaFactory;
 class Pessoa extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome']; 
+    protected $fillable = ['nome', 'endereco', 'data_nasc']; 
 
     public function registros(): HasMany
     {

@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Pessoa;
+use App\Models\Registro;
 use Livewire\Component;
 use Livewire\Attributes\On; 
 
@@ -13,12 +14,16 @@ class ListaContatos extends Component
 
     #[On('contato-criado')]
     #[On('contato-deletado')]
-    public function render()
+    public function render(){
+
+    }
+
+    public function delete($id)
     {
-        $pessoas = Pessoa::where("nome", "LIKE", "%" . $this->search . "%")
-            ->with('registros.tipoRegistro')
-            ->orderBy('nome')
-            ->get();
-        return view('livewire.lista-contatos', ['pessoas' => $pessoas]);
+        Registro::where('pessoa_id', $id)->delete();
+        Pessoa::where('id', $id)->delete();
+        
+        $this->showModal = false;
+        return view('contatos.create', compact('todos_tipos'));
     }
 }

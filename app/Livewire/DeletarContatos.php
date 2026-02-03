@@ -17,7 +17,7 @@ class DeletarContatos extends Component
         Pessoa::where('id', $id)->delete();
         
         $this->showModal = false;
-        $this->dispatch('contato-deletado');
+        return view('contatos.create', compact('todos_tipos'));
     }
 
     public function render()
