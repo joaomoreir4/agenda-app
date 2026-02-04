@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $tipoInsta   = TipoRegistro::factory()->create(['tipo_registro' => 'Instagram']);
 
         Pessoa::factory()
-            ->count(15)
+            ->count(50)
             ->afterCreating(function (Pessoa $pessoa) use ($tipoCelular, $tipoEmail, $tipoInsta) 
             {
                 Registro::factory()->create(

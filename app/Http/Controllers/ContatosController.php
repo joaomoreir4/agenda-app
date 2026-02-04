@@ -9,11 +9,21 @@ use Illuminate\Http\Request;
 
 class ContatosController extends Controller
 {
-    public function index()
-    {
-        $pessoas = Pessoa::orderBy('nome')->get();
-        return view('contatos.index', compact('pessoas'));
-    }
+    public function index(Request $request)
+{
+    $search = $request->query('search');
+
+    $pessoas = Pessoa::query()
+        ->when($search, function ($query, $search) 
+        {
+            return $query->where('nome', 'like', "%{$search}%");
+        })
+        ->orderBy('nome')
+        ->paginate(10); 
+
+    
+    return view('contatos.index', compact('pessoas', 'search'));
+}
 
    
 
@@ -90,7 +100,7 @@ class ContatosController extends Controller
 
     public function destroy($id)
     {
-        Registro::where('pessoa_id', $id)->delete();
+        // Registro::where('pessoa_id', $id)->delete();
         Pessoa::where('id', $id)->delete();
         return back();
     }
