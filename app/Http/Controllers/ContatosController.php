@@ -9,30 +9,24 @@ use Illuminate\Http\Request;
 
 class ContatosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $pessoas = Pessoa::orderBy('nome')->get();
         return view('contatos.index', compact('pessoas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+   
+
     public function create()
     {
         $todos_tipos = TipoRegistro::orderBy('tipo_registro')->get();
         return view('contatos.create', compact('todos_tipos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
+
     public function store(Request $request)
     {
-        dd($request);
         $pessoa = Pessoa::create(
             [
                 'nome' => $request->nome,
@@ -41,43 +35,59 @@ class ContatosController extends Controller
             ]
         );
 
-        // $registro = Registro::create(
-        //     [
-        //         'tipo_registro_id'
-        //     ]
-        // )
 
-
-        dd($pessoa);
+        foreach ($request->contatos as $contato){
+            Registro::create(
+                [
+                    'contato' => $contato['contato'],
+                    'pessoa_id' => $pessoa->id,
+                    'tipo_registro_id' => $contato['tipo_registro_id']
+                ]
+            );
+        }
+        
+        return redirect(route('contatos.index'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
-        //
+        $pessoa = Pessoa::find($id);
+        return view('contatos.edit', compact('pessoa'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
+ 
     public function update(Request $request, string $id)
     {
-        //
+        $pessoa = Pessoa::find($id);
+        $pessoa->update([
+            'nome' => $request->nome,
+            'endereco' => $request->endereco,
+            'data_nasc' => $request->data_nasc,
+            ]
+        );
+
+        $idsRestantes = collect($request->contatos)->pluck('id') ->filter()->toArray();
+        $pessoa->registros()->whereNotIn('id', $idsRestantes)->delete();
+
+        $contatos = $request->contatos;
+        foreach ($contatos as $contato){
+            $pessoa->registros()->updateOrCreate(
+                ['id' => $contato['id'] ?? null],
+                [
+                    'contato' => $contato['contato'],
+                    'tipo_registro_id' => $contato['tipo_registro_id']
+                ]
+            );
+        }
+
+        return redirect(route('contatos.index'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
+
     public function destroy($id)
     {
         Registro::where('pessoa_id', $id)->delete();

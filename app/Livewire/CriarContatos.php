@@ -27,7 +27,7 @@ class CriarContatos extends Component
         $this->contatos[] =
                 [
                     'tipo_registro_id' => $this->tipo_registro_id,
-                    'tipo_nome' => $tipo_registro_nome->tipo_registro, 
+                    'tipo_registro' => $tipo_registro_nome->tipo_registro, 
                     'contato' => $this->contato
                 ];
     }
