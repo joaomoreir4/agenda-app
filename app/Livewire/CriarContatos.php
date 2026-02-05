@@ -10,25 +10,26 @@ use Livewire\Component;
 
 class CriarContatos extends Component
 {
-    public $nome = '';
-
-    public $endereco = '';
-
-    public $data_nasc = '';
-
+    #[Validate('required', message: 'Informe um tipo de contato')]
     public $tipo_registro_id = '';
 
+    #[Validate('required', message: 'Informe um contato')]
     public $contato = '';
 
     public array $contatos = [];
 
     public function addContato(){
-        $tipo_registro_nome = TipoRegistro::find($this->tipo_registro_id);
+        $validated = $this->validate([
+            'tipo_registro_id' => 'required',
+            'contato' => 'required'
+        ]);
+
+        $tipo_registro_nome = TipoRegistro::find($validated['tipo_registro_id']);
         $this->contatos[] =
                 [
-                    'tipo_registro_id' => $this->tipo_registro_id,
+                    'tipo_registro_id' => $validated['tipo_registro_id'],
                     'tipo_registro' => $tipo_registro_nome->tipo_registro, 
-                    'contato' => $this->contato
+                    'contato' => $validated['contato']
                 ];
     }
 

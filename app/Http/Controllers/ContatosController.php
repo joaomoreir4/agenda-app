@@ -41,9 +41,21 @@ class ContatosController extends Controller
 
     public function store(Request $request)
     {
+        $rules = [
+            'nome' => 'required|max:45',
+            'contatos' => 'required|array|min:1',
+        ];
+
+        $messages = [
+            'nome.required' => 'O campo nome é obrigatório',
+            'contatos.required' => 'Você precisa adicionar pelo menos um contato.'
+        ];
+
+        $validated = $request->validate($rules, $messages);
+
         $pessoa = Pessoa::create(
             [
-                'nome' => $request->nome,
+                'nome' => $validated['nome'],
                 'endereco' => $request->endereco,
                 'data_nasc' => $request->data_nasc,
             ]

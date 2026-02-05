@@ -30,9 +30,11 @@
                                         <label class="block mb-1 text-sm text-slate-600">
                                             Nome
                                         </label>
-                                        <input type="text" name='nome' class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Digite o nome..." >
-                                        <div>
-                                            @error('nome') <span class="error">{{ $message }}</span> @enderror 
+                                        <input id="nome" type="text" name='nome' class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow @error('nome') is-invalid @enderror" placeholder="Digite o nome..." >
+                                        <div class="text-red-500 text-xs">
+                                            @error('nome') 
+                                                <span class="">{{ $message }}</span> 
+                                            @enderror 
                                         </div>
                                     </div>
                                     
