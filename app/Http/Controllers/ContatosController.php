@@ -60,6 +60,7 @@ class ContatosController extends Controller
             );
         }
         
+        $this->banner('Contato criado!');
         return redirect(route('contatos.index'));
     }
 
@@ -97,15 +98,17 @@ class ContatosController extends Controller
             );
         }
 
-        return redirect(route('contatos.index'));
+        
+        $this->banner('Contato editado com sucesso!');
+        return redirect()->route('contatos.index');
     }
 
 
 
     public function destroy($id)
     {
-        $this->banner('Usuário deletado');
         Pessoa::where('id', $id)->delete();
+        $this->banner('Contato deletado!');
         return redirect()->route('contatos.index');
     }
 }
