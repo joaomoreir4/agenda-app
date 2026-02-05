@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Pessoa;
 use App\Models\Registro;
 use App\Models\TipoRegistro;
+use App\Traits\InteractsWithBanner;
 use Illuminate\Http\Request;
 
 class ContatosController extends Controller
 {
+    use InteractsWithBanner;
+
+
     public function index(Request $request)
 {
     $search = $request->query('search');
@@ -100,8 +104,8 @@ class ContatosController extends Controller
 
     public function destroy($id)
     {
-        // Registro::where('pessoa_id', $id)->delete();
+        $this->banner('Usuário deletado');
         Pessoa::where('id', $id)->delete();
-        return back();
+        return redirect()->route('contatos.index');
     }
 }
