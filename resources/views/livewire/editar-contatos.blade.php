@@ -12,6 +12,10 @@
                 </li>
                 @endforeach
             </ul>
+
+            <div class="text-xs text-red-500 m-1">
+                @error('contatos') {{ $message }} @enderror
+            </div>
         </div>
 
         <div class="col-span-12 grid grid-cols-12 gap-5 m-1 items-end"> 

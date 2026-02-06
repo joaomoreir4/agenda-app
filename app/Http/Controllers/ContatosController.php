@@ -88,6 +88,19 @@ class ContatosController extends Controller
  
     public function update(Request $request, string $id)
     {
+         $rules = [
+            'nome' => 'required|max:45',
+            'contatos' => 'required|array|min:1',
+        ];
+
+        $messages = [
+            'nome.required' => 'O campo nome é obrigatório',
+            'contatos.required' => 'Você precisa adicionar pelo menos um contato.'
+        ];
+
+        $validated = $request->validate($rules, $messages);
+        // dd($validated);
+
         $pessoa = Pessoa::find($id);
         $pessoa->update([
             'nome' => $request->nome,
@@ -100,16 +113,19 @@ class ContatosController extends Controller
         $pessoa->registros()->whereNotIn('id', $idsRestantes)->delete();
 
         $contatos = $request->contatos;
-        foreach ($contatos as $contato){
-            $pessoa->registros()->updateOrCreate(
-                ['id' => $contato['id'] ?? null],
-                [
-                    'contato' => $contato['contato'],
-                    'tipo_registro_id' => $contato['tipo_registro_id']
-                ]
-            );
-        }
+        if($contatos){
+            foreach ($contatos as $contato){
+                $pessoa->registros()->updateOrCreate(
+                    ['id' => $contato['id'] ?? null],
+                    [
+                        'contato' => $contato['contato'],
+                        'tipo_registro_id' => $contato['tipo_registro_id']
+                    ]
+                );
+            }
+        } else{
 
+        }
         
         $this->banner('Contato editado com sucesso!');
         return redirect()->route('contatos.index');

@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Contatos > Criar Contato') }}
-        </h2>
+        <div class="font-semibold text-xl text-gray-800 leading-tight">
+            <a href="{{ route('contatos.index') }}" class="hover:text-teal-800 hover:underline">Contatos</a> > Criar Contato
+        </div>
     </x-slot>
 
     <div>
