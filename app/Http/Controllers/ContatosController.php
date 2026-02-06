@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ContatoCadastrado;
+use App\Events\PessoaCadastrada;
 use App\Models\Pessoa;
 use App\Models\Registro;
 use App\Models\TipoRegistro;
@@ -71,7 +73,8 @@ class ContatosController extends Controller
                 ]
             );
         }
-        
+
+        PessoaCadastrada::dispatch($pessoa);
         $this->banner('Contato criado!');
         return redirect(route('contatos.index'));
     }
@@ -99,32 +102,26 @@ class ContatosController extends Controller
         ];
 
         $validated = $request->validate($rules, $messages);
-        // dd($validated);
 
         $pessoa = Pessoa::find($id);
         $pessoa->update([
-            'nome' => $request->nome,
+            'nome' => $validated['nome'],
             'endereco' => $request->endereco,
             'data_nasc' => $request->data_nasc,
             ]
         );
 
-        $idsRestantes = collect($request->contatos)->pluck('id') ->filter()->toArray();
+        $idsRestantes = collect($validated['contatos'])->pluck('id') ->filter()->toArray();
         $pessoa->registros()->whereNotIn('id', $idsRestantes)->delete();
 
-        $contatos = $request->contatos;
-        if($contatos){
-            foreach ($contatos as $contato){
-                $pessoa->registros()->updateOrCreate(
-                    ['id' => $contato['id'] ?? null],
-                    [
-                        'contato' => $contato['contato'],
-                        'tipo_registro_id' => $contato['tipo_registro_id']
-                    ]
-                );
-            }
-        } else{
-
+        foreach ($validated['contatos'] as $contato){
+            $pessoa->registros()->updateOrCreate(
+                ['id' => $contato['id'] ?? null],
+                [
+                    'contato' => $contato['contato'],
+                    'tipo_registro_id' => $contato['tipo_registro_id']
+                ]
+            );
         }
         
         $this->banner('Contato editado com sucesso!');
