@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\ContatoCadastrado;
 use App\Events\PessoaCadastrada;
 use App\Models\Pessoa;
 use App\Models\Registro;
@@ -74,7 +73,7 @@ class ContatosController extends Controller
             );
         }
 
-        PessoaCadastrada::dispatch($pessoa);
+        PessoaCadastrada::dispatch($pessoa, $request->contatos);
         $this->banner('Contato criado!');
         return redirect(route('contatos.index'));
     }

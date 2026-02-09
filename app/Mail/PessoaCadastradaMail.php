@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -16,7 +15,7 @@ class PessoaCadastradaMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(private $nome)
+    public function __construct(private $event)
     {
         //
     }
@@ -38,7 +37,12 @@ class PessoaCadastradaMail extends Mailable
     {
         return new Content(
             view: 'mail.pessoa-cadastrada',
-            with: ['nome' => $this->nome]
+            with: [
+                'nome' => $this->event->pessoa->nome,
+                'endereco' => $this->event->pessoa->endereco,
+                'contatos' => $this->event->contatos,
+                'data_nasc' => $this->event->pessoa->data_nasc,
+            ]
         );
     }
 
