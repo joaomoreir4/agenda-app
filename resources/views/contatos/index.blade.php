@@ -6,7 +6,7 @@
     </x-slot>
 
 
-    <div x-data="{ open: false, actionUrl: ''}" class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div x-data="{ modalDelete: false, actionUrl: ''}" class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
 
         <div class="border border-gray-300 rounded-lg">
             <div class="w-full text-center bg-teal-800 text-white font-bold p-2 rounded-t-lg">
@@ -69,27 +69,54 @@
                     </ul>
                 </div>
                 <div class="flex border border-b-gray-400 p-4">
-                    <div class=" w-full flex justify-center items-center gap-4">
-                        <a href="{{ route('contatos.edit', $pessoa->id) }}" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>
-                        </a>
+                    <div
+                        class="w-full lg:w-auto p-3 border border-b md:border-none lg:table-cell relative lg:static flex justify-between border-gray-300/50" x-data="{ open: false }">
+                        <div class="flex flex-row justify-center">
+                            <button x-on:click="open = !open" aria-label="Mais Ações">
+                                <svg class="h-6 w-6" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8.33317 4.66683C8.33317 4.85092 8.18393 5.00016 7.99984 5.00016C7.81574 5.00016 7.6665 4.85092 7.6665 4.66683C7.6665 4.48273 7.81574 4.3335 7.99984 4.3335C8.18393 4.3335 8.33317 4.48273 8.33317 4.66683Z" stroke="#334155" />
+                                    <path d="M8.33317 7.99984C8.33317 8.18393 8.18393 8.33317 7.99984 8.33317C7.81574 8.33317 7.6665 8.18393 7.6665 7.99984C7.6665 7.81574 7.81574 7.6665 7.99984 7.6665C8.18393 7.6665 8.33317 7.81574 8.33317 7.99984Z" stroke="#334155" />
+                                    <path d="M8.33317 11.3333C8.33317 11.5174 8.18393 11.6667 7.99984 11.6667C7.81574 11.6667 7.6665 11.5174 7.6665 11.3333C7.6665 11.1492 7.81574 11 7.99984 11C8.18393 11 8.33317 11.1492 8.33317 11.3333Z" stroke="#334155" />
+                                </svg>
+                            </button>
+
+                            <div x-cloak class="grid grid-flow-row rounded-xl shadow-lg bg-white absolute py-2 mt-12 z-40" x-show="open" @click.outside="open = false">
+                                <div class="grid grid-flow-row text-left text-cinza2 pl-2 pr-2">
+                                    <p class="font-bold">Ações:</p>
+                                    <a class="flex gap-2" href="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cinza2" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                                        </svg>
+                                        Visualizar contato
+                                    </a>
+                                    <a class="flex gap-2" href="{{ route('contatos.edit', $pessoa->id) }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cinza2" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z" clip-rule="evenodd" />
+                                            <path d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z" />
+                                        </svg>
+                                        Editar contato
+                                    </a>
+                                    <a class="flex gap-2 hover:cursor-pointer" @click="modalDelete = true; open = !open; actionUrl = '{{ route('contatos.destroy', $pessoa->id) }}';">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                        </svg>
+                                        Excluir contato
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class=" w-full flex justify-center items-center gap-4">
-                        <button @click="open = true; actionUrl = '{{ route('contatos.destroy', $pessoa->id) }}';"
-                            class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                        </button>
-                    </div>
-                </div>
+                </div> 
                 @endforeach
             </div>
 
-            <div x-cloak x-show="open">
+            <div x-cloak x-show="modalDelete">
                 <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
                 <div class="fixed inset-0 z-10 overflow-y-auto">
                     <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
                         <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                            <div x-on:click.outside="open = false" class="bg-white px-4 py-3 text-black">
+                            <div x-on:click.outside="modalDelete = false" class="bg-white px-4 py-3 text-black">
                                 <form :action="actionUrl" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -114,7 +141,7 @@
                                         </div>
                                         
                                         <div class="col-span-6 flex justify-end p-3">
-                                            <button @click.prevent="open = false" class="rounded-md bg-black/50 px-4 py-3 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-black/20 sm:mt-0 sm:w-auto">Cancelar</button>
+                                            <button @click.prevent="modalDelete = false" class="rounded-md bg-black/50 px-4 py-3 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-black/20 sm:mt-0 sm:w-auto">Cancelar</button>
                                             <button type="submit" class="rounded-md bg-red-500 px-4 py-3 text-sm font-semibold text-white hover:bg-red-400 sm:ml-3 sm:w-auto">Deletar</button>
                                         </div> 
 
