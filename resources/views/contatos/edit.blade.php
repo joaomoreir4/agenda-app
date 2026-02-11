@@ -7,9 +7,8 @@
 
     <div>
         <div>
-
             <div class="py-12" x-data="{ open: false, actionUrl: ''}">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
                     <div class="border border-gray-300 rounded-lg bg-white">
                         <div class="w-full text-center bg-teal-800 text-white font-bold p-2 rounded-t-lg">
                             Editar Contato
@@ -25,9 +24,8 @@
                                         <h2>Editando contato: {{ $pessoa->nome }}</h2> 
                                     </div>
 
-
-                                    <div class="col-span-6">
-                                        <label class="block mb-1 text-sm text-slate-600">
+                                    <div class="col-span-4">
+                                        <label class="block mb-1 text-sm text-black">
                                             Nome
                                         </label>
                                         <input type="text" value="{{ $pessoa->nome }}" name='nome' class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow @error('nome') is-invalid @enderror" placeholder="Digite o nome..." >
@@ -36,20 +34,20 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="col-span-6">
-                                        <label class="block mb-1 text-sm text-slate-600">
-                                            Endereço
-                                        </label>
-                                        <input type="text" value="{{ $pessoa->endereco }}" name='endereco' id='endereco' class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Digite o endereço completo..." />   
-                                    </div>
-
-                                    <div class="col-span-3">
-                                        <label class="block mb-1 text-sm text-slate-600">
+                                    <div class="col-span-2">
+                                        <label class="block mb-1 text-sm text-black">
                                             Data de nascimento
                                         </label>
                                         <input type="date" value="{{ $pessoa->data_nasc }}" name='data_nasc' class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
                                     </div>
                                     
+                                    <div class="col-span-6">
+                                        <label class="block mb-1 text-sm text-black">
+                                            Endereço
+                                        </label>
+                                        <input type="text" value="{{ $pessoa->endereco }}" name='endereco' id='endereco' class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Digite o endereço completo..." />   
+                                    </div>
+
                                     <livewire:editar-contatos :wire:key="$pessoa->nome" :pessoa="$pessoa"/>
                                     
                                     <div class="col-span-6 flex justify-between">
