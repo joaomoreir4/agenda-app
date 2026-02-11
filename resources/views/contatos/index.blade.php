@@ -83,7 +83,7 @@
                             <div x-cloak class="grid grid-flow-row rounded-xl shadow-lg bg-white absolute py-2 mt-12 z-40" x-show="open" @click.outside="open = false">
                                 <div class="grid grid-flow-row text-left text-cinza2 pl-2 pr-2">
                                     <p class="font-bold">Ações:</p>
-                                    <a class="flex gap-2" href="">
+                                    <a class="flex gap-2" href="{{ route('contatos.show', $pessoa->id) }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cinza2" viewBox="0 0 20 20" fill="currentColor">
                                             <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                                             <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
@@ -152,6 +152,52 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div x-cloak x-show="modalShow" class="p-5 col-span-6 border border-gray-300 rounded-lg">
+            <div class="grid grid-cols-12 gap-5 m-3">
+                <div class="col-span-12">
+                    {{-- <ul>
+                        @foreach ($contatos as $index => $contato)
+                        <li wire:key="contato{{ $index }}" class="grid grid-cols-12 gap-5 m-1">
+                            <input class="col-span-5 w-full border border-slate-200 rounded-md focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" name="contatos[{{ $index }}][tipo_registro]" readonly value="{{ $contato['tipo_nome'] }}"></input>
+                            <input class="col-span-6 w-full border border-slate-200 rounded-md focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" name="contatos[{{ $index }}][contato]" type="text" value="{{ $contato['contato'] }} "></input>
+                            <input type="hidden" name="contatos[{{ $index }}][tipo_registro_id]" readonly value="{{ $contato['tipo_registro_id'] }}"></input>
+                            <input type="hidden" name="contatos[{{ $index }}][id]" readonly value="{{ $contato['id'] ?? '' }}"></input>
+                            <button wire:click="deleteContato({{ $index }})" type="button" class="col-span-1 w-full bg-red-500 hover:bg-red-400 text-white font-bold py-1 border-b-4 border-red-700 hover:border-red-500 rounded">X</button>
+                        </li>
+                        @endforeach
+                    </ul> --}}
+
+                    <div class="text-xs text-red-500 m-1">
+                        {{-- @error('contatos') {{ $message }} @enderror --}}
+                    </div>
+                </div>
+
+                <div class="col-span-12 grid grid-cols-12 gap-5 m-1 items-end"> 
+                    <div class="col-span-4">
+                        <label class="mb-1 text-sm text-slate-600">
+                            Tipo de Contato
+                        </label> 
+                    
+                        <select wire:model.live='tipo_registro_id' class="block w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm appearance-none cursor-pointer">
+                            <option selected>-- Selecione-- </option>
+                            {{-- @foreach ($todos_tipos as $tipo)
+                                <option value="{{ $tipo->id }}">{{ $tipo->tipo_registro }}</option>
+                            @endforeach --}}
+                        </select>
+                    </div> 
+
+                    <div class="col-span-5">
+                        <label class="mb-1 text-sm text-slate-600">Contato</label>
+                        <input type="text" wire:model='contato' placeholder="Digite o contato..." class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" />
+                    </div>
+                    
+                    <div class="col-span-3">
+                        <button type="button" wire:click="addContato()" class="w-full bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Adicionar contato</button>
+                    </div>
+                </div>
+            </div>       
         </div>
         
             <div class="mt-4">

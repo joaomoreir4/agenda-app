@@ -129,6 +129,14 @@ class ContatosController extends Controller
 
 
 
+    public function show($id)
+    {
+        $pessoa = Pessoa::find($id);
+        return view('contatos.show', compact('pessoa'));
+    }
+
+
+
     public function destroy($id)
     {
         Pessoa::where('id', $id)->delete();
