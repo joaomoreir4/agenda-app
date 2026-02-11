@@ -8,7 +8,7 @@
     <div>
         <div>
             <div class="py-12" x-data="{ open: false, actionUrl: ''}">
-                <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
                     <div class="border border-gray-300 rounded-lg bg-white">
                         <div class="w-full text-center bg-teal-800 text-white font-bold p-2 rounded-t-lg">
                             Editar Contato

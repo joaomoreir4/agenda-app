@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            <div class="col-span-5">
+            <div class="col-span-8">
                 <label class="mb-1 text-sm text-slate-600">Contato</label>
                 <input type="text" wire:model='contato' placeholder="Digite o contato..." class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none {{ $errors->has('contato') ? 'border-red-500 focus:border-red-500' : 'border-slate-200 focus:border-slate-400 hover:border-slate-300' }} shadow-sm focus:shadow" />
                     
@@ -42,8 +42,8 @@
                 </div>
             </div>
             
-            <div class="col-span-3">
-                <button type="button" wire:click="addContato()" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-1 px-3 border-b-4 border-blue-700 hover:border-blue-500 rounded">Adicionar contato +</button>
+            <div class="col-span-4">
+                <button type="button" wire:click="addContato()" class="w-full bg-blue-500 hover:bg-blue-400 text-white text-sm font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Adicionar contato</button>
                 <div class="h-5"></div>
             </div>
         </div>
